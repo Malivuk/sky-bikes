@@ -1,5 +1,9 @@
-# sky-bikes
+# SkyBikes
 Bicycle rental program prototype :bike:
+
+![circle ci passing](https://circleci.com/gh/Malivuk/sky-bikes.svg?style=shield&circle-token=2f8aa2cdabc83b4b39fb99eb3e46bf812ab74c85)
+
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
 ---
 
