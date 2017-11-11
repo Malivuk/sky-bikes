@@ -1,4 +1,4 @@
-import { isAdmin } from './login.js'
+import { isAdmin } from './Login.js'
 import { expect } from 'chai'
 
 describe('isAdmin', () => {
