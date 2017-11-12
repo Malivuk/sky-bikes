@@ -1,11 +1,9 @@
+// Style
 import './Stations.css'
-import stations from './../../public/stations.json'
-import bikeImg from './../../public/bike.svg'
-import parkingImg from './../../public/parking.svg'
+import stationsList from './../../public/stations.json'
 
+// Logic
 export const banMember = () => console.log('Ban member')
-
-export const startCountdown = () => console.log('Ban member')
 
 export const detachBike = () => console.log('Detach bike')
 
@@ -15,29 +13,70 @@ export const isMember = () => console.log('Is member')
 
 export const isBanned = () => console.log('Is banned')
 
-export const returnBike = (id) => console.log('Return bike ' + id)
+export const hasBike = () => console.log('Has bike')
 
-export const rentBike = (id) => console.log('Rent bike ' + id)
-
-export const toggleBike = (e) => {
+export const returnBike = (e) => {
   e.preventDefault()
-  const bike = e.srcElement.dataset.bike
-  bike ? rentBike(bike) : returnBike(bike)
+  console.log('Return bike (from LS)')
 }
 
+localStorage.setItem('stations', JSON.stringify(stationsList))
+let testStations = JSON.parse(localStorage.getItem('stations'))
+
+export const rentBike = (e) => {
+  e.preventDefault()
+  const id = e.target.dataset.bike
+
+  // Update data
+  testStations.forEach((station) => station.forEach((bike, i) => bike.id === id ? station[i] = {} : false))
+  localStorage.setItem('stations', JSON.stringify(testStations))
+
+  // Udpate UI
+  e.target.className = 'slot parking'
+  e.target.style.backgroundColor = '#f0f0f0'
+  e.target.dataset.bike = ''
+  e.target.addEventListener('click', returnBike)
+  document.getElementById('instructions').innerHTML = `Return the bike by clicking a parking icon before ${5000}`
+
+  // isMember()
+  // isBanned()
+  // attachBike()
+  // banMember()
+}
+
+// UI
 export const Stations = () => {
-  const bike = document.createElement('div')
-  let bikeHtml = ''
-  stations.map((e, i) => {
-    bikeHtml += `<div class='station'>`
-      bikeHtml += `<p>Station ${i+1}</p>`
-      e.map((f) => {
-        bikeHtml += `<a href='#' class='bike' data-bike='${f.id || ''}' style='background:${f.color || `#f0f0f0`}'>`
-          bikeHtml += `<img src=${f.id ? bikeImg : parkingImg} alt='Bike slot' data-bike='${f.id || ''}' />`
-        bikeHtml += `</a>`
-      })
-    bikeHtml += '</div>'
+  const wrapper = document.createElement('div')
+
+  // Stations element
+  const instruction = document.createElement('p')
+  instruction.id = 'instructions'
+  instruction.innerHTML = 'Renting a bike by clicking on it.'
+
+  wrapper.appendChild(instruction)
+
+  stationsList.map((e, i) => {
+    // Single station element
+    const station = document.createElement('div')
+    station.className = 'station'
+
+    const label = document.createElement('p')
+    label.innerHTML = `Station ${i+1}`
+
+    station.appendChild(label)
+
+    e.map((f) => {
+      // Single bike element
+      const bike = document.createElement('a')
+      bike.href = '#'
+      bike.className = f.id ? 'bike slot' : 'parking slot'
+      bike.dataset.bike = f.id || ''
+      bike.style.backgroundColor = f.color || '#f0f0f0'
+      f.id ? bike.addEventListener('click', rentBike) : bike.addEventListener('click', returnBike)
+
+      station.appendChild(bike)
+    })
+    wrapper.appendChild(station)
   })
-  bike.innerHTML = bikeHtml
-  return bike
+  return wrapper
 }

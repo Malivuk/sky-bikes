@@ -7,7 +7,7 @@ export const register = () => console.log('register attempt')
 
 export const isMember = () => console.log('Is member')
 
-console.log(users)
+// console.log(users)
 
 export const isAdmin = (id) => id === 'admin'
 
