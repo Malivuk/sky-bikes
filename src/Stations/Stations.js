@@ -1,57 +1,81 @@
-// Style
 import './Stations.css'
-import stationsList from './../../public/stations.json'
+import initStationsList from './../../public/stations.json'
 
-// Logic
-export const banMember = () => console.log('Ban member')
+/*
+  Component logic
+*/
 
-export const detachBike = () => console.log('Detach bike')
+// TODO delete
+console.log(JSON.parse(localStorage.getItem('stations')))
+if (JSON.parse(localStorage.getItem('stations')) == null) {
+  localStorage.setItem('stations', JSON.stringify(initStationsList))
+}
+let stationsList = JSON.parse(localStorage.getItem('stations'))
 
-export const attachBike = () => console.log('Attach bike')
+// TODO make common
+const isEmptyObject = (o) => Object.keys(o).length === 0 && o.constructor === Object ? true : false
 
-export const isMember = () => console.log('Is member')
+const updateInstruction = (i) => document.getElementById('instructions').innerHTML = i
 
-export const isBanned = () => console.log('Is banned')
-
-export const hasBike = () => console.log('Has bike')
-
-export const returnBike = (e) => {
-  e.preventDefault()
-  console.log('Return bike (from LS)')
+const returnBike = () => {
+  // e.preventDefault()
+  stationsList.some((station) => station.some((bike, i) => isEmptyObject(bike) ? station[i] = {id: '99', color: 'pink'} : false))
+  localStorage.setItem('stations', JSON.stringify(stationsList))
+  console.log(stationsList)
 }
 
-localStorage.setItem('stations', JSON.stringify(stationsList))
-let testStations = JSON.parse(localStorage.getItem('stations'))
+const banMember = (t) => {
+  clearInterval(t)
+  // TODO mark as banned
+  // TODO return bike
+  returnBike()
+  updateInstruction('Remaining time is over.')
+}
 
-export const rentBike = (e) => {
+const initCountdown = () => {
+  let remainingTime = 2
+  const t = setInterval(() => remainingTime === 0 ? banMember(t) : updateInstruction(`Return the bike before ${remainingTime--}.`), 1000)
+}
+
+const rentBike = (e) => {
   e.preventDefault()
   const id = e.target.dataset.bike
 
+  // 1. isMember(user)
+  // 2. isBanned(user)
+  // 3. hasBike(user)
+  // 4. handleError(error)
+  // 5. addBikeToUser(user)
+  // 6. removeBikeFromStation(bikeID) + UI update
+  // 7. removeBikeFromUser
+  // 8. addBikeToStation
+  // 9. isStationSlotFree
+  // 10. banMember(user)
+
   // Update data
-  testStations.forEach((station) => station.forEach((bike, i) => bike.id === id ? station[i] = {} : false))
-  localStorage.setItem('stations', JSON.stringify(testStations))
+  stationsList.forEach((station) => station.forEach((bike, i) => bike.id === id ? station[i] = {} : false))
+  localStorage.setItem('stations', JSON.stringify(stationsList))
+  console.log(stationsList)
 
   // Udpate UI
   e.target.className = 'slot parking'
   e.target.style.backgroundColor = '#f0f0f0'
   e.target.dataset.bike = ''
   e.target.addEventListener('click', returnBike)
-  document.getElementById('instructions').innerHTML = `Return the bike by clicking a parking icon before ${5000}`
 
-  // isMember()
-  // isBanned()
-  // attachBike()
-  // banMember()
+  initCountdown()
 }
 
-// UI
-export const Stations = () => {
-  const wrapper = document.createElement('div')
+/*
+  Component UI
+*/
 
+const Stations = () => {
   // Stations element
+  const wrapper = document.createElement('div')
   const instruction = document.createElement('p')
   instruction.id = 'instructions'
-  instruction.innerHTML = 'Renting a bike by clicking on it.'
+  instruction.innerHTML = 'Rent a bike by clicking on it.'
 
   wrapper.appendChild(instruction)
 
@@ -79,4 +103,13 @@ export const Stations = () => {
     wrapper.appendChild(station)
   })
   return wrapper
+}
+
+export {
+  Stations,
+  rentBike,
+  banMember,
+  initCountdown,
+  updateInstruction,
+  returnBike
 }
