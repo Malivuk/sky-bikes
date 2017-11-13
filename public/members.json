@@ -8,5 +8,11 @@
     "mail": "staff@fb.com",
     "name": "Staff",
     "phone": "00000000001"
+  },
+  {
+    "mail": "banned@user.com",
+    "name": "Bane",
+    "phone": "00000000002",
+    "banned": true
   }
 ]

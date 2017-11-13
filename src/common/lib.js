@@ -4,11 +4,12 @@
 
 export const isEmptyObject = (o) => (Object.keys(o).length === 0 && o.constructor === Object) === true
 
-export const isMember = (m) => true
+export const isMember = (email, members) => members.find((m) => m.mail === email)
 
-export const isBanned = (m) => true
-
-export const sanitizeString = (s) => console.log(s)
+export const isBanned = (email, members) => {
+  const member = members.find((m) => m.mail === email)
+  return member.banned === true
+}
 
 /*
   Data manipulation methods
@@ -43,3 +44,5 @@ export const createInput = (type, value, name, placeholder, eventListener, callb
   input.addEventListener(eventListener, callback)
   return input
 }
+
+export const pageReload = () => window.location.reload()

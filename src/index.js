@@ -9,19 +9,19 @@ import initUsers from './../public/members.json'
   Initiliaze an new array of Stations
   or fetch existing data from localstorage
 */
-getItem('sk-stations') ? getItem('sk-stations') : setItem('sk-stations', JSON.stringify(initStationsList))
+getItem('sb-stations') ? getItem('sb-stations') : setItem('sb-stations', JSON.stringify(initStationsList))
 
 /*
   Initiliaze an new array of Users
   or fetch existing data from localstorage
 */
-getItem('sk-members') ? getItem('sk-members') : setItem('sk-members', JSON.stringify(initUsers))
+getItem('sb-members') ? getItem('sb-members') : setItem('sb-members', JSON.stringify(initUsers))
 
 /*
   Shows Login component if no session exists
   Shows Station component otherwise
 */
-getSession('sk-session') ? document.getElementById('stations').appendChild(Stations()) : document.getElementById('login').appendChild(Login())
+getSession('sb-session') ? document.getElementById('stations').appendChild(Stations()) : document.getElementById('login').appendChild(Login())
 
 // TODO attach admin superpowers to view
 // TODO attach worker superpowers to view

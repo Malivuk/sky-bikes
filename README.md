@@ -6,7 +6,7 @@ Bicycle rental program prototype :bike:
 
 
 ## Installation
-s
+
 ### Requirements
 * node
 * browser scope
@@ -17,6 +17,10 @@ s
 todo
 
 ## Structure
+
+### Philosophy
+* Modern JS
+* [if](https://hackernoon.com/rethinking-javascript-the-if-statement-b158a61cd6cb)
 
 ### View
 todo

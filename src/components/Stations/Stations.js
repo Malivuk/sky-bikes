@@ -4,11 +4,11 @@ import { isEmptyObject, getItem, setItem, updateInstruction, isMember, isBanned 
 /*
   Component logic
 */
-const stations = JSON.parse(getItem('sk-stations'))
+const stations = JSON.parse(getItem('sb-stations'))
 
 const returnBike = () => {
   stations.some((station, i) => station.some((bike, j) => isEmptyObject(bike) ? station[j] = {id: '99', color: 'pink'} : false))
-  setItem('sk-stations', JSON.stringify(stations))
+  setItem('sb-stations', JSON.stringify(stations))
 }
 
 const banMember = (i) => {
@@ -47,7 +47,7 @@ const rentBike = (e) => {
       }
     })
   })
-  setItem('sk-stations', JSON.stringify(stations))
+  setItem('sb-stations', JSON.stringify(stations))
 
   // Udpate UI
   e.target.className = 'slot parking'
