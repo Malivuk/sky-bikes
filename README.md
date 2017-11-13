@@ -6,9 +6,12 @@ Bicycle rental program prototype :bike:
 
 
 ## Installation
-
+s
 ### Requirements
-todo
+* node
+* browser scope
+* local storage
+* session storage
 
 ### Scripts
 todo
@@ -20,6 +23,17 @@ todo
 
 ### Model
 todo
+
+## Improvements
+
+### Routing
+
+### Server-side verification
+
+### Data-binding
+
+### JSX
+[post](https://hackernoon.com/how-i-converted-my-react-app-to-vanillajs-and-whether-or-not-it-was-a-terrible-idea-4b14b1b2faff)
 
 ## My approach (dev log)
 

@@ -1,0 +1,54 @@
+#login {
+}
+
+input {
+  display: block;
+  height: 30px;
+  margin-bottom: 2em;
+  min-width: 50%;
+  font-size: 100%;
+}
+
+input::placeholder {
+  font-style: italic;
+}
+
+input[type='text'] {
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+input[type='submit'] {
+  min-width: 25%;
+  background-color: #F44336;
+  height: 40px;
+  line-height: 40px;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  -webkit-transition: background-color .3s;
+  -moz-transition: background-color .3s;
+  -o-transition: background-color .3s;
+  transition: background-color .3s;
+}
+
+input[type='submit']:hover, input[type='submit']:focus {
+  background-color: #D32F2F;
+}
+
+@media only screen and (max-width: 640px) {
+  input, input[type='submit'] {
+    min-width: 100%;
+  }
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: none;
+  border-bottom: 1px dotted #dcdcdc;
+  margin: 4em 0;
+}

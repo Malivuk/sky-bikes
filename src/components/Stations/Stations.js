@@ -1,40 +1,28 @@
 import './Stations.css'
-import initStationsList from './../../public/stations.json'
+import { isEmptyObject, getItem, setItem, updateInstruction } from './../../common/lib.js'
 
 /*
   Component logic
 */
-
-// TODO delete
-console.log(JSON.parse(localStorage.getItem('stations')))
-if (JSON.parse(localStorage.getItem('stations')) == null) {
-  localStorage.setItem('stations', JSON.stringify(initStationsList))
-}
-let stationsList = JSON.parse(localStorage.getItem('stations'))
-
-// TODO make common
-const isEmptyObject = (o) => Object.keys(o).length === 0 && o.constructor === Object ? true : false
-
-const updateInstruction = (i) => document.getElementById('instructions').innerHTML = i
+const stations = JSON.parse(getItem('sk-stations'))
 
 const returnBike = () => {
-  // e.preventDefault()
-  stationsList.some((station) => station.some((bike, i) => isEmptyObject(bike) ? station[i] = {id: '99', color: 'pink'} : false))
-  localStorage.setItem('stations', JSON.stringify(stationsList))
-  console.log(stationsList)
+  stations.some((station, i) => station.some((bike, j) => isEmptyObject(bike) ? station[j] = {id: '99', color: 'pink'} : false))
+  setItem('sk-stations', JSON.stringify(stations))
 }
 
-const banMember = (t) => {
-  clearInterval(t)
+const banMember = (i) => {
+  clearInterval(i)
   // TODO mark as banned
   // TODO return bike
   returnBike()
   updateInstruction('Remaining time is over.')
+  // Todo kill session + reload
 }
 
 const initCountdown = () => {
   let remainingTime = 2
-  const t = setInterval(() => remainingTime === 0 ? banMember(t) : updateInstruction(`Return the bike before ${remainingTime--}.`), 1000)
+  const i = setInterval(() => remainingTime === 0 ? banMember(i) : updateInstruction(`Return the bike before ${remainingTime--}.`), 1000)
 }
 
 const rentBike = (e) => {
@@ -53,9 +41,14 @@ const rentBike = (e) => {
   // 10. banMember(user)
 
   // Update data
-  stationsList.forEach((station) => station.forEach((bike, i) => bike.id === id ? station[i] = {} : false))
-  localStorage.setItem('stations', JSON.stringify(stationsList))
-  console.log(stationsList)
+  stations.forEach((station) => {
+    station.forEach((bike, i) => {
+      if (bike.id === id) {
+        station[i] = {}
+      }
+    })
+  })
+  setItem('sk-stations', JSON.stringify(stations))
 
   // Udpate UI
   e.target.className = 'slot parking'
@@ -74,19 +67,19 @@ const Stations = () => {
   // Stations element
   const wrapper = document.createElement('div')
   const instruction = document.createElement('p')
+
+  // Feedback area (instructions, errors...)
   instruction.id = 'instructions'
   instruction.innerHTML = 'Rent a bike by clicking on it.'
-
   wrapper.appendChild(instruction)
 
-  stationsList.map((e, i) => {
+  stations.map((e, i) => {
     // Single station element
     const station = document.createElement('div')
     station.className = 'station'
 
     const label = document.createElement('p')
-    label.innerHTML = `Station ${i+1}`
-
+    label.innerHTML = `Station ${i + 1}`
     station.appendChild(label)
 
     e.map((f) => {
@@ -97,7 +90,6 @@ const Stations = () => {
       bike.dataset.bike = f.id || ''
       bike.style.backgroundColor = f.color || '#f0f0f0'
       f.id ? bike.addEventListener('click', rentBike) : bike.addEventListener('click', returnBike)
-
       station.appendChild(bike)
     })
     wrapper.appendChild(station)
@@ -110,6 +102,5 @@ export {
   rentBike,
   banMember,
   initCountdown,
-  updateInstruction,
   returnBike
 }
