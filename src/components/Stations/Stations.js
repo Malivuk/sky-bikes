@@ -1,5 +1,5 @@
 import './Stations.css'
-import { isEmptyObject, getItem, setItem, updateInstruction } from './../../common/lib.js'
+import { isEmptyObject, getItem, setItem, updateInstruction, isMember, isBanned } from './../../common/lib.js'
 
 /*
   Component logic
@@ -32,13 +32,12 @@ const rentBike = (e) => {
   // 1. isMember(user)
   // 2. isBanned(user)
   // 3. hasBike(user)
-  // 4. handleError(error)
-  // 5. addBikeToUser(user)
-  // 6. removeBikeFromStation(bikeID) + UI update
-  // 7. removeBikeFromUser
-  // 8. addBikeToStation
-  // 9. isStationSlotFree
-  // 10. banMember(user)
+  // 4. addBikeToUser(user)
+  // 5. removeBikeFromStation(bikeID) + UI update
+  // 6. removeBikeFromUser
+  // 7. addBikeToStation
+  // 8. isStationSlotFree
+  // 9. banMember(user)
 
   // Update data
   stations.forEach((station) => {

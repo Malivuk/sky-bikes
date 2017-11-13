@@ -1,17 +1,57 @@
 import './Login.css'
-import { updateInstruction, createInput } from './../../common/lib.js'
+import { updateInstruction, getItem, createInput, isMember, isBanned } from './../../common/lib.js'
 
 /*
   Component logic
 */
 
-export const login = () => console.log('Login attempt')
+const members = JSON.parse(getItem('sk-members'))
+console.log(members)
 
-export const register = () => console.log('register attempt')
+export const isValidName = (n) => false
 
-export const isMember = () => console.log('Is member')
+export const isValidEmail = (e) => false
 
-export const isAdmin = (id) => id === 'admin'
+export const isValidPhone = (p) => false
+
+export const startNewSession = (m) => console.log(m.email) // new session + reload
+
+export const registerAttempt = (e) => {
+  e.preventDefault()
+
+  // Sanitize and check fields
+  const form = document.forms['register-form']
+  let errors = ''
+  const member = {
+    'name': form['register-name'].value,
+    'phone': form['register-phone'].value,
+    'mail': form['register-mail'].value
+  }
+  errors += !isValidName(member.name) ? 'Please enter a valid name (e.g., John Doe).<br>' : ''
+  errors += !isValidPhone(member.phone) ? 'Please enter a valid phone number (e.g., 01034947369).<br>' : ''
+  errors += !isValidEmail(member.mail) ? 'Please enter a valid email address (e.g., john@doe.com).<br>'
+    : isMember(member.mail) ? 'You are already registered, please login.<br>'
+      : isBanned(member.mail) ? 'You are not allowed to access the service, please contact support@skybikes.com.<br>'
+        : ''
+
+  // Push errors or register
+  errors ? updateInstruction(errors) : startNewSession(member)
+}
+
+export const loginAttempt = (e) => {
+  e.preventDefault()
+
+  // Sanitize and check fields
+  let errors = ''
+  const member = {}
+  errors += !isValidEmail(member.mail) ? 'Please enter a valid email address (e.g., john@doe.com).<br>'
+    : !isMember(member.mail) ? 'You are not registered yet, please register.<br>'
+      : isBanned(member.mail) ? 'You are not allowed to access the service, please contact support@skybikes.com.<br>'
+        : ''
+
+  // Push errors or login
+  errors ? updateInstruction(errors) : startNewSession(member)
+}
 
 /*
   Component UI
@@ -28,10 +68,11 @@ export const Login = () => {
 
   // Register form
   const registerForm = document.createElement('form')
-  registerForm.appendChild(createInput('text', '', 'register-name', 'Enter your name'))
-  registerForm.appendChild(createInput('text', '', 'register-mail', 'Enter your email address'))
-  registerForm.appendChild(createInput('text', '', 'register-name', 'Enter your phone number'))
-  registerForm.appendChild(createInput('submit', 'Register', 'register-submit', ''))
+  registerForm.name = 'register-form'
+  registerForm.appendChild(createInput('text', '', 'register-name', 'Enter your name', '', ''))
+  registerForm.appendChild(createInput('text', '', 'register-mail', 'Enter your email address', '', ''))
+  registerForm.appendChild(createInput('text', '', 'register-phone', 'Enter your phone number', '', ''))
+  registerForm.appendChild(createInput('submit', 'Register', 'register-submit', '', 'click', registerAttempt))
   wrapper.appendChild(registerForm)
 
   const separator = document.createElement('hr')
@@ -39,8 +80,9 @@ export const Login = () => {
 
   // Login form
   const loginForm = document.createElement('form')
-  loginForm.appendChild(createInput('text', '', 'register-mail', 'Enter your email address'))
-  loginForm.appendChild(createInput('submit', 'Login', 'login-submit', ''))
+  loginForm.name = 'login-form'
+  loginForm.appendChild(createInput('text', '', 'register-mail', 'Enter your email address', '', ''))
+  loginForm.appendChild(createInput('submit', 'Login', 'login-submit', '', 'click', loginAttempt))
   wrapper.appendChild(loginForm)
 
   return wrapper

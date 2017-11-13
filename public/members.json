@@ -1,11 +1,11 @@
 [
   {
-    "email": "admin@fb.com",
+    "mail": "admin@fb.com",
     "name": "Admin",
     "phone": "00000000000"
   },
   {
-    "email": "staff@fb.com",
+    "mail": "staff@fb.com",
     "name": "Staff",
     "phone": "00000000001"
   }
