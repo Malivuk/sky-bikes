@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = {
@@ -12,6 +13,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
+    new CopyPlugin([{from: './public/icons/*' }]),
     new HtmlWebpackPlugin({
       template: './src/index.ejs'
     }),
@@ -31,7 +33,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|svg|jpg|gif|ttf)$/,
+        test: /\.(png|svg|jpg|gif|ttf|json|xml|ico)$/,
         use: [
           'file-loader'
         ]

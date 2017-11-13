@@ -15,20 +15,18 @@ export const isValidEmail = (e) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 
 export const isValidPhone = (p) => /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/.test(p)
 
-export const saveMember = (member, members) => {
+const saveMember = (member, members) => {
   members.push(member)
   setItem('sb-members', JSON.stringify(members))
   startNewSession(member.email)
 }
 
-export const startNewSession = (m) => {
+const startNewSession = (m) => {
   setSession('sb-session', m)
   pageReload()
 }
 
 const registerAttempt = (e) => {
-  e.preventDefault()
-
   // Sanitize and check fields
   let errors = ''
   const form = document.forms['register-form']
@@ -48,8 +46,6 @@ const registerAttempt = (e) => {
 }
 
 const loginAttempt = (e) => {
-  e.preventDefault()
-
   // Sanitize and check fields
   let errors = ''
   const form = document.forms['login-form']

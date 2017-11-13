@@ -1,6 +1,8 @@
 # SkyBikes
 Bicycle rental program prototype :bike:
 
+Demo [cached version](https://skybikes.jeanloup.me/) and [no cached version](http://skybikes.jeanloup.me.s3-website.ca-central-1.amazonaws.com/)
+
 ![circle ci passing](https://circleci.com/gh/Malivuk/sky-bikes.svg?style=shield&circle-token=2f8aa2cdabc83b4b39fb99eb3e46bf812ab74c85)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
@@ -21,6 +23,9 @@ todo
 ### Philosophy
 * Modern JS
 * [if](https://hackernoon.com/rethinking-javascript-the-if-statement-b158a61cd6cb)
+* pwa + front opti (fav, theme, metas, og, banner, responsive, ssl, svg)
+* command-line deployment
+* ut - ci
 
 ### View
 todo

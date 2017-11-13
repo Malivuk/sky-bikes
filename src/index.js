@@ -2,8 +2,8 @@ import './index.css'
 import { Login } from './components/Login/Login.js'
 import { Stations } from './components/Stations/Stations.js'
 import { getItem, setItem, getSession } from './common/lib.js'
-import initStationsList from './../public/stations.json'
-import initUsers from './../public/members.json'
+import initStationsList from './../public/data/stations.json'
+import initUsers from './../public/data/members.json'
 
 /*
   Initiliaze an new array of Stations

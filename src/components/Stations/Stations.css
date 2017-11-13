@@ -21,11 +21,11 @@
 }
 
 .bike {
-  background-image: url('./../../../public/bike.svg');
+  background-image: url('./../../../public/svg/bike.svg');
 }
 
 .parking {
-  background-image: url('./../../../public/parking.svg');
+  background-image: url('./../../../public/svg/parking.svg');
 }
 
 

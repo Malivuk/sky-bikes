@@ -26,7 +26,6 @@ const initCountdown = () => {
 }
 
 const rentBike = (e) => {
-  e.preventDefault()
   const id = e.target.dataset.bike
 
   // 1. isMember(user)

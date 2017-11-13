@@ -51,7 +51,7 @@ table {
 
 @font-face {
   font-family: 'broadway';
-  src: url('./../public/broadway.ttf') format('truetype');
+  src: url('./../public/fonts/broadway.ttf') format('truetype');
 }
 
 html {
