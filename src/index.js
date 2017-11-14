@@ -26,9 +26,9 @@ getItem('sb-members') ? getItem('sb-members') : setItem('sb-members', JSON.strin
 */
 if (getSession('sb-session')) {
   document.getElementById('stations').appendChild(Stations())
-    if (getSession('sb-session') === 'admin@sb.com') {
+    if (JSON.parse(getSession('sb-session')).mail === 'admin@sb.com') {
     document.getElementById('admin').appendChild(Admin())
-  } else if (getSession('sb-session') === 'staff@sb.com') {
+  } else if (JSON.parse(getSession('sb-session')).mail === 'staff@sb.com') {
     document.getElementById('staff').appendChild(Staff())
   }
 } else {

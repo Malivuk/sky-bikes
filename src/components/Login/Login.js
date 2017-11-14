@@ -23,11 +23,11 @@ const members = JSON.parse(getItem('sb-members'))
 const saveMember = (member, members) => {
   members.push(member)
   setItem('sb-members', JSON.stringify(members))
-  startNewSession(member.email)
+  startNewSession(member)
 }
 
 const startNewSession = (m) => {
-  setSession('sb-session', m)
+  setSession('sb-session', JSON.stringify(m))
   pageReload()
 }
 
@@ -67,7 +67,7 @@ const loginAttempt = (e) => {
         : ''
 
   // Push errors or login
-  errors ? updateInstruction(errors) : startNewSession(member.mail)
+  errors ? updateInstruction(errors) : startNewSession(isMember(member.mail, members))
 }
 
 /*

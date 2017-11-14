@@ -14,6 +14,8 @@ export const isValidPhone = (p) => /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[
 
 export const isMember = (email, members) => members.find((m) => m.mail === email)
 
+export const isPrivilegedAccount = (session) => (session === 'admin@sb.com' || session === 'staff@sb.com') === true
+
 export const isBanned = (email, members) => {
   const member = members.find((m) => m.mail === email)
   return member.banned === true

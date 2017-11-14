@@ -5,7 +5,8 @@ import {
   sanitize,
   isValidName,
   isValidEmail,
-  isValidPhone
+  isValidPhone,
+  isPrivilegedAccount
 } from './lib.js'
 import { expect } from 'chai'
 
@@ -115,6 +116,19 @@ describe('isValidPhone', () => {
   context('when input has valid format', () => {
     it('returns true', () => {
       expect(isValidPhone('01034947369')).to.equal(true)
+    })
+  })
+})
+
+describe('isPrivilegedAccount', () => {
+  context('when user is not privileged', () => {
+    it('returns false', () => {
+      expect(isPrivilegedAccount('normal@user.com')).to.equal(false)
+    })
+  })
+  context('when user is privileged', () => {
+    it('returns true', () => {
+      expect(isPrivilegedAccount('admin@sb.com')).to.equal(true)
     })
   })
 })

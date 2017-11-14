@@ -10,6 +10,7 @@ Bicycle rental program prototype
 
 ### Requirements
 * Node 7.1.0 or above
+* NPM 3.10.9 or above
 * Chrome (latest) `||` Firefox (latest) `||` Edge (latest)
 
 ### Key concepts
@@ -75,7 +76,7 @@ You can try the following cases (accounts) out of the box:
 *1h is the lowest time unit I decided to attribute to a given task. The main reason is that, even if the task looks simple, it's pretty easy to lose time reading documentation or working on another task at the same time.*
 
 ### Draft on paper - 1h
-I started by drawing a rough representation of the model and how it should interact with the view, based on the stories. I usually try to forecast all connections and dependencies to isolate all global methods. Then, I'm transforming methods into tasks and I evaluate their complexity. 
+I started by drawing a rough representation of the model and how it should interact with the view, based on the stories. I usually try to forecast all connections and dependencies to isolate all global methods. Then, I'm transforming methods into tasks and I evaluate their complexity.
 
 ### Defining the stack - 1h
 * [ES6](https://github.com/lukehoban/es6features) JS
@@ -118,6 +119,7 @@ I started by drawing a rough representation of the model and how it should inter
 ### Front end optimization - 1h
 * Add PWA features (icons, themes, launcher, banner support...)
 * Add appropriate meta and OG tags
+* Add proper fonts
 * Optimize responsive layout
 
 ### QA - 1h

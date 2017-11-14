@@ -15,16 +15,6 @@ export const initUsers = [
     "phone": "00000000001"
   },
   {
-    "mail": "riding@user.com",
-    "name": "Riley",
-    "phone": "00000000002",
-    "bike": {
-      "id": "2",
-      "color": "#4B0082",
-      "remainingTime": "ts",
-    }
-  },
-  {
     "mail": "banned@user.com",
     "name": "Bane",
     "phone": "00000000003",
