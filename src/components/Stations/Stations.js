@@ -15,11 +15,12 @@ import {
   Component logic
 */
 
+// Load members and stations from localStorage and member session from sessionStorage
 const stations = JSON.parse(getItem('sb-stations'))
 const members = JSON.parse(getItem('sb-members'))
 const session = JSON.parse(getSession('sb-session'))
 
-const updateMemberSession = (members, session) => {
+const updateMemberSession = (session) => {
   let fakeArray = []
   fakeArray.push(session)
   const updatedMembers = members.map(obj => fakeArray.find(o => o.mail === obj.mail) || obj)
@@ -32,16 +33,23 @@ const removeBikeFromStation = (id) => {
 }
 
 const automaticBikeReturn = (bike) => {
-  stations.some((station, i) => station.some((bike, j) => isEmptyObject(bike) ? station[j] = bike : false))
+  // Find the first empty slot and fill it
+  delete bike.rentTime
+  stations.some((station, i) => station.some((b, j) => isEmptyObject(b) ? station[j] = bike : false))
+
+  // Update stations object in localStorage and reload page
   setItem('sb-stations', JSON.stringify(stations))
+  pageReload()
 }
 
 const markAsBanned = (session) => {
+  // Create a `banned` key and set it to true before update the member session
   session.banned = true
-  updateMemberSession(members, session)
+  updateMemberSession(session)
 }
 
 const logout = () => {
+  // Kill the member session and "redirect" to login screen
   delSession('sb-session')
   pageReload()
 }
@@ -51,30 +59,35 @@ const banMember = (i, session) => {
   clearInterval(i)
   updateInstruction('Remaining time is over.')
 
-  // Update session
+  // Return the bike
+  automaticBikeReturn(session.bike)
+
+  // Detach bike from member
+  delete session.bike
+  updateMemberSession(session)
+
+  // Update member session with `banned` key and "redirect" to login screen
   if (!isPrivilegedAccount(session.mail)) {
     markAsBanned(session)
     logout()
   }
-  // Return the bike in all cases
-  automaticBikeReturn(session.bike)
 }
 
 const initCountdown = () => {
+  // Ban member if countdown expires, otherwise, juste update the clock in the UI
   let remainingTime = 5
-
-  // Ban member if countdown expires, otherwise, juste update the clock
   const i = setInterval(() => remainingTime === 0 ? banMember(i, session) : updateInstruction(`Return the bike before ${remainingTime--}.`), 1000)
 }
 
 const manualBikeReturn = (e) => {
   if (hasBike(session)) {
+    // Get data attributes from the target (position in array) and update the sations object
     const i = e.target.dataset.station
     const j = e.target.dataset.slot
     stations[i][j] = session.bike
-
-    // remove rentTime before session update
     delete stations[i][j].rentTime
+
+    // Update the statkl object in localStorage and reload page
     setItem('sb-stations', JSON.stringify(stations))
     pageReload()
 
@@ -85,13 +98,13 @@ const manualBikeReturn = (e) => {
 
 const rentBike = (e) => {
   if (!hasBike(session)) {
-    // Get data attributes
+    // Get data attributes from target
     const bikeId = e.target.dataset.bike
     const bikeColor = e.target.dataset.color
     const stationNo = e.target.dataset.station
     const slotNo = e.target.dataset.slot
 
-    // Udpate slot UI
+    // Udpate UI of the slot (becomes parking slot)
     e.preventDefault()
     e.target.className = 'slot parking'
     e.target.style.backgroundColor = '#f0f0f0'
@@ -109,11 +122,13 @@ const rentBike = (e) => {
       'color': bikeColor,
       'rentTime': performance.now()
     }
-    updateMemberSession(members, session)
+    updateMemberSession(session)
 
     // Remove bike from the local storage
     removeBikeFromStation(bikeId)
-    // initCountdown() // TODO REHAB
+
+    // Start countdown
+    initCountdown()
 
   } else {
     alert('You are already riding a bike!')

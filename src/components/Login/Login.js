@@ -18,6 +18,7 @@ import {
   Component logic
 */
 
+// Load members from localStorage
 const members = JSON.parse(getItem('sb-members'))
 
 const saveMember = (member, members) => {
@@ -27,11 +28,13 @@ const saveMember = (member, members) => {
 }
 
 const startNewSession = (m) => {
+  // Create temporary session and reload page
   setSession('sb-session', JSON.stringify(m))
   pageReload()
 }
 
 const registerAttempt = (e) => {
+  // Prevent form submission's default behavior
   e.preventDefault()
 
   // Sanitize fields
@@ -55,6 +58,7 @@ const registerAttempt = (e) => {
 }
 
 const loginAttempt = (e) => {
+  // Prevent form submission's default behavior
   e.preventDefault()
 
   // Sanitize fields
