@@ -34,7 +34,7 @@ export const Staff = () => {
   // Sort button
   const button = document.createElement('button')
   button.innerHTML = 'Clean bikes'
-  button.addEventListener('click', cleanBikes)
+  button.addEventListener('click', cleanBikes, false)
   wrapper.appendChild(button)
   return wrapper
 }

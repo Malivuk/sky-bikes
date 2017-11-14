@@ -61,14 +61,16 @@ You can try the following cases (accounts) out of the box:
 * *worker*: `staff@sb.co`
 
 ## Improvements
+* Make countdown persistent against page refresh
+* find a way to kill all sessions with `cleanBikes()`, to avoid conflicts
+* Prevent multi-accounting (allowed by `sessionStorage`'s nature)
 * Write better tests and extend their coverage
 * Give each member a unique ID
 * Implement a custom [JSX-like](https://hackernoon.com/how-i-converted-my-react-app-to-vanillajs-and-whether-or-not-it-was-a-terrible-idea-4b14b1b2faff) solution
 * Implement a custom data-binding solution
 * Implement a custom routing solution
-* considering server-side rendering for SEO purposes
-* Handling user input on server-side
-* Split the back end into microservices
+* consider server-side rendering for SEO purposes
+* Handle user input on server-side
 
 
 ## :memo: Dev log
@@ -125,5 +127,7 @@ I started by drawing a rough representation of the model and how it should inter
 ### QA - 1h
 * Test stories on main browsers and devices
 
+### Total - 14h
+
 ### Last words
-The project was challenging considering the timeline and my full time job. However, I found it interesting and I felt like learning through the technical limitation (i.e., no front end framework).
+The project was challenging considering the timeline and my full time job. However, I found it interesting and I felt like learning through the technical limitations (i.e., no front end framework).

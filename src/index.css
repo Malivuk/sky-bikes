@@ -72,10 +72,11 @@ header {
 	background-color: #F44336;
 }
 
-header h1 {
+header h1 a {
 	color: #fff;
 	font-family: 'broadway';
 	font-size: 1.5rem;
+	text-decoration: none;
 }
 
 h2 {

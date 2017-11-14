@@ -47,13 +47,12 @@ export const updateInstruction = (i) => {
   document.getElementById('instructions').innerHTML = i
 }
 
-export const createInput = (type, value, name, placeholder, eventListener, callback) => {
+export const createInput = (type, value, name, placeholder) => {
   const input = document.createElement('input')
   input.type = type
   input.value = value
   input.name = name
   input.placeholder = placeholder
-  input.addEventListener(eventListener, callback)
   return input
 }
 

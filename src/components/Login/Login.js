@@ -18,9 +18,6 @@ import {
   Component logic
 */
 
-// Load members from localStorage
-const members = JSON.parse(getItem('sb-members'))
-
 const saveMember = (member, members) => {
   members.push(member)
   setItem('sb-members', JSON.stringify(members))
@@ -36,6 +33,9 @@ const startNewSession = (m) => {
 const registerAttempt = (e) => {
   // Prevent form submission's default behavior
   e.preventDefault()
+
+  // Load members from localStorage
+  const members = JSON.parse(getItem('sb-members'))
 
   // Sanitize fields
   const form = document.forms['register-form']
@@ -60,6 +60,9 @@ const registerAttempt = (e) => {
 const loginAttempt = (e) => {
   // Prevent form submission's default behavior
   e.preventDefault()
+
+  // Load members from localStorage
+  const members = JSON.parse(getItem('sb-members'))
 
   // Sanitize fields
   const form = document.forms['login-form']
@@ -94,10 +97,12 @@ export const Login = () => {
   // Register form
   const registerForm = document.createElement('form')
   registerForm.name = 'register-form'
-  registerForm.appendChild(createInput('text', '', 'register-name', 'Enter your name', '', ''))
-  registerForm.appendChild(createInput('text', '', 'register-mail', 'Enter your email address', '', ''))
-  registerForm.appendChild(createInput('text', '', 'register-phone', 'Enter your phone number (no space)', '', ''))
-  registerForm.appendChild(createInput('submit', 'Register', 'register-submit', '', 'click', registerAttempt))
+  registerForm.appendChild(createInput('text', '', 'register-name', 'Enter your name'))
+  registerForm.appendChild(createInput('text', '', 'register-mail', 'Enter your email address'))
+  registerForm.appendChild(createInput('text', '', 'register-phone', 'Enter your phone number (no space)'))
+  const submitRegister = createInput('submit', 'Register', 'register-submit', '')
+  submitRegister.addEventListener('click', registerAttempt, false)
+  registerForm.appendChild(submitRegister)
   wrapper.appendChild(registerForm)
 
   const separator = document.createElement('hr')
@@ -106,8 +111,10 @@ export const Login = () => {
   // Login form
   const loginForm = document.createElement('form')
   loginForm.name = 'login-form'
-  loginForm.appendChild(createInput('text', '', 'login-mail', 'Enter your email address', '', ''))
-  loginForm.appendChild(createInput('submit', 'Login', 'login-submit', '', 'click', loginAttempt))
+  loginForm.appendChild(createInput('text', '', 'login-mail', 'Enter your email address'))
+  const submitLogin = createInput('submit', 'Login', 'login-submit', '')
+  submitLogin.addEventListener('click', loginAttempt, false)
+  loginForm.appendChild(submitLogin)
   wrapper.appendChild(loginForm)
 
   return wrapper

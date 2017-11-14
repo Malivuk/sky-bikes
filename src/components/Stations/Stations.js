@@ -15,9 +15,13 @@ import {
   Component logic
 */
 
-// Load members and stations from localStorage and member session from sessionStorage
+// Load stations from localStorage
 const stations = JSON.parse(getItem('sb-stations'))
+
+// Load members from localStorage
 const members = JSON.parse(getItem('sb-members'))
+
+// Load member session from sessionStorage
 const session = JSON.parse(getSession('sb-session'))
 
 const updateMemberSession = (session) => {
@@ -75,8 +79,15 @@ const banMember = (i, session) => {
 
 const initCountdown = () => {
   // Ban member if countdown expires, otherwise, juste update the clock in the UI
-  let remainingTime = 5
-  const i = setInterval(() => remainingTime === 0 ? banMember(i, session) : updateInstruction(`Return the bike before ${remainingTime--}.`), 1000)
+  let remainingTime = 1600
+  const i = setInterval(() => {
+    if(remainingTime === 0) {
+      banMember(i, session)
+    } else {
+      remainingTime--
+      updateInstruction(`Return the bike before ${(remainingTime/100)/2} hours.`)
+    }
+  }, 10)
 }
 
 const manualBikeReturn = (e) => {
@@ -86,6 +97,10 @@ const manualBikeReturn = (e) => {
     const j = e.target.dataset.slot
     stations[i][j] = session.bike
     delete stations[i][j].rentTime
+
+    // Detach bike from member
+    delete session.bike
+    updateMemberSession(session)
 
     // Update the statkl object in localStorage and reload page
     setItem('sb-stations', JSON.stringify(stations))
@@ -113,14 +128,14 @@ const rentBike = (e) => {
     e.target.dataset.slot = slotNo
     e.target.dataset.color = ''
     e.target.removeEventListener('click', rentBike)
-    e.target.addEventListener('click', manualBikeReturn)
+    e.target.addEventListener('click', manualBikeReturn, false)
 
     // Update data
     // Add bike object to session
     session.bike = {
       'id': bikeId,
       'color': bikeColor,
-      'rentTime': performance.now()
+      'rentTime': new Date().getTime()
     }
     updateMemberSession(session)
 
@@ -142,9 +157,14 @@ const rentBike = (e) => {
 export const Stations = () => {
   // Stations element
   const wrapper = document.createElement('div')
-  const instruction = document.createElement('p')
+
+  // User name
+  const memberName = document.createElement('p')
+  memberName.innerHTML = `Welcome, ${session.name}.`
+  wrapper.appendChild(memberName)
 
   // Feedback area (instructions, errors...)
+  const instruction = document.createElement('p')
   instruction.id = 'instructions'
   instruction.innerHTML = 'Rent a bike by clicking on it.'
   wrapper.appendChild(instruction)
@@ -168,7 +188,7 @@ export const Stations = () => {
       bike.dataset.slot = j
       bike.dataset.color = f.color || ''
       bike.style.backgroundColor = f.color || '#f0f0f0'
-      f.id ? bike.addEventListener('click', rentBike) : bike.addEventListener('click', manualBikeReturn)
+      f.id ? bike.addEventListener('click', rentBike, false) : bike.addEventListener('click', manualBikeReturn, false)
       station.appendChild(bike)
     })
     wrapper.appendChild(station)

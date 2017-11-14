@@ -5,8 +5,6 @@ import { getItem, pageReload } from './../../common/lib.js'
   Component logic
 */
 
-const members = JSON.parse(getItem('sb-members'))
-
 const createFakeTableCell = (className, text, textColor) => {
   const cell = document.createElement('div')
   cell.className = className
@@ -20,6 +18,9 @@ const createFakeTableCell = (className, text, textColor) => {
 */
 
 export const Admin = () => {
+  // Load members from localStorage
+  const members = JSON.parse(getItem('sb-members'))
+
   const wrapper = document.createElement('div')
 
   // Area title
@@ -39,7 +40,7 @@ export const Admin = () => {
   fakeTableTitles.appendChild(createFakeTableCell('column-title', 'Status'))
   fakeTableTitles.appendChild(createFakeTableCell('column-title', 'Bike ID'))
   fakeTableTitles.appendChild(createFakeTableCell('column-title', 'Bike color'))
-  fakeTableTitles.appendChild(createFakeTableCell('column-title', 'Timer'))
+  fakeTableTitles.appendChild(createFakeTableCell('column-title', 'Rent time'))
   wrapper.appendChild(fakeTableTitles)
 
   members.map((m, i) => {
@@ -56,7 +57,7 @@ export const Admin = () => {
     if (m.bike) {
       member.appendChild(createFakeTableCell('bike-id', m.bike.id))
       member.appendChild(createFakeTableCell('bike-color', m.bike.color, m.bike.color))
-      member.appendChild(createFakeTableCell('bike-timer', m.bike.remainingTime))
+      member.appendChild(createFakeTableCell('bike-timer', m.bike.rentTime))
     } else {
       member.appendChild(createFakeTableCell('bike-id no-data', '&#8203;'))
       member.appendChild(createFakeTableCell('bike-color no-data', '&#8203;'))
@@ -68,7 +69,7 @@ export const Admin = () => {
   // Refresh button
   const button = document.createElement('button')
   button.innerHTML = 'Refresh'
-  button.addEventListener('click', pageReload)
+  button.addEventListener('click', pageReload, false)
   wrapper.appendChild(button)
 
   return wrapper
