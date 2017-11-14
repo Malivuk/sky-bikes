@@ -1,11 +1,11 @@
 export const initUsers = [
   {
-    "mail": "admin@fb.com",
+    "mail": "admin@sb.com",
     "name": "Admin",
     "phone": "00000000000"
   },
   {
-    "mail": "staff@fb.com",
+    "mail": "staff@sb.com",
     "name": "Staff",
     "phone": "00000000001"
   },

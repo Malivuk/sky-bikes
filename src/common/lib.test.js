@@ -11,7 +11,7 @@ import { expect } from 'chai'
 
 const testUsers = [
   {
-    "mail": "admin@fb.com",
+    "mail": "admin@sb.com",
     "name": "Admin",
     "phone": "00000000000"
   },
@@ -39,12 +39,12 @@ describe('isEmptyObject', () => {
 describe('isMember', () => {
   context('when email doesn\'t match any member', () => {
     it('returns undefined', () => {
-      expect(isMember('fake@fb.com', testUsers)).to.equal(undefined)
+      expect(isMember('fake@sb.com', testUsers)).to.equal(undefined)
     })
   })
   context('when email matches a member', () => {
     it('returns an object', () => {
-      expect(isMember('admin@fb.com', testUsers)).to.be.an('object')
+      expect(isMember('admin@sb.com', testUsers)).to.be.an('object')
     })
   })
 })
@@ -52,7 +52,7 @@ describe('isMember', () => {
 describe('isBanned', () => {
   context('when email matches a member which is not banned', () => {
     it('returns false', () => {
-      expect(isBanned('admin@fb.com', testUsers)).to.equal(false)
+      expect(isBanned('admin@sb.com', testUsers)).to.equal(false)
     })
   })
   context('when email matches a member which is banned', () => {

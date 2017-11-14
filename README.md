@@ -1,11 +1,10 @@
 # SkyBikes
 Bicycle rental program prototype :bike:
 
-Demo [cached version](https://skybikes.jeanloup.me/) and [no cached version](http://skybikes.jeanloup.me.s3-website.ca-central-1.amazonaws.com/)
+Demo [here](https://skybikes.jeanloup.me/)
 
 ![circle ci passing](https://circleci.com/gh/Malivuk/sky-bikes.svg?style=shield&circle-token=2f8aa2cdabc83b4b39fb99eb3e46bf812ab74c85)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
-
 
 ## Installation
 
@@ -15,9 +14,17 @@ Demo [cached version](https://skybikes.jeanloup.me/) and [no cached version](htt
 * local storage
 * session storage
 
-### Scripts
-todo
+### Scripts available
+* install
+* start (dev)
+* build (prod)
+* test (manually)
 
+### How to use
+* register
+* login as random
+* log as admin
+* log as worker
 
 ## Structure
 
@@ -27,11 +34,13 @@ todo
 * [if](https://hackernoon.com/rethinking-javascript-the-if-statement-b158a61cd6cb)
 * pwa + front opti (fav, theme, metas, og, banner, responsive, ssl, svg)
 * command-line deployment
-* ut - ci
+* ut - ci - automated test
 * no dependecies
 
 ### View
-todo
+* src/components
+* src/common
+* public
 
 ### Model
 * local storage
@@ -49,8 +58,9 @@ todo
 * custom routing
 [post](https://hackernoon.com/how-i-converted-my-react-app-to-vanillajs-and-whether-or-not-it-was-a-terrible-idea-4b14b1b2faff)
 
+---
 
-## My approach (dev log)
+## Dev log
 
 ### Analysis and paper draft - 1h
 I'm first working on a white paper, writing and drawing a rough representation of the model and its interactions, based on the stories.
@@ -76,8 +86,21 @@ Project setup covers the following scope:
 * Writing custom NPM scripts
 * GitHub repository & circleci setup
 * ESLint setup
-* Folder architecture (components-based) & basic documentation
+* Folder architecture (components-based) & documentation draft
 * Cloud setup (CDN, DB) and dummy call to DB
 * Dummy static files to test webpack configuration and circleci integration
 
 *From my experience, that part is often underestimated but it will impact the project on the long run. However, for the sake of simplicity (prototyping), I didn't spend too much time on it.*
+
+### Hosting
+* s3
+* certificate manager
+* CloudFront
+* route53
+* S3 sdk
+
+### QA
+* test browsers
+
+### last words
+* challenging/fun

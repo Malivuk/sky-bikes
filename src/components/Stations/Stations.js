@@ -11,6 +11,7 @@ import {
 /*
   Component logic
 */
+
 const stations = JSON.parse(getItem('sb-stations'))
 
 const returnBike = () => {

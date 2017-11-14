@@ -1,10 +1,13 @@
-import { getItem, pageReload } from './../../common/lib.js'
+import { setItem, pageReload } from './../../common/lib.js'
+import { initStations } from './../../../public/data/stations.js'
 
 /*
   Component logic
 */
 
-export const sortBikes = () => {
+const cleanBikes = () => {
+  // Simple hard reset so far
+  setItem('sb-stations', JSON.stringify(initStations))
   pageReload()
 }
 
@@ -23,9 +26,10 @@ export const Staff = () => {
   title.innerHTML = 'Staff area'
   wrapper.appendChild(title)
 
+  // Sort button
   const button = document.createElement('button')
   button.innerHTML = 'Clean bikes'
-  button.addEventListener('click', pageReload)
+  button.addEventListener('click', cleanBikes)
   wrapper.appendChild(button)
   return wrapper
 }
