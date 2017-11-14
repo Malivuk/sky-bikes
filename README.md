@@ -125,7 +125,8 @@ I started by drawing a rough representation of the model and how it should inter
 * Optimize responsive layout
 
 ### QA - 1h
-* Test stories on main browsers and devices
+* Test stories on main browsers, devices and OS
+* Test scripts on new environment
 
 ### Total - 14h
 
