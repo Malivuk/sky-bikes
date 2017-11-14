@@ -50,9 +50,9 @@ npm run build
 ### Usage
 From the home screen, you can either register or login. On the main screen (stations), you can click on a *bike* to start renting it. Return it by clicking on a *parking* case or you will be banned and logged out.
 
-If you logged in as an *sys admin*, you can also see the list of the users. If you did as a *worker*, you can sort the bikes in the default order. Note that both roles can rent bikes as well but they can't be banned.
+When loggin as a *sys admin*, you can see the list of all the users. If you logged in as a *worker*, you have the option to sort the bikes in the default order (reset `stations` and `members` object). Note that both roles can rent bikes but they can't be banned.
 
-Whenever you log into the app, a session will start and remain for **the current tab** only. Other data (users, stations) remain accessible across the tabs. It allows you to simulate many connections within a single browser window.
+Whenever you log into the app, a session will start and remain active for **the current tab** only. Other data (users, stations) remain accessible across the tabs. It allows you to simulate many connections within a single browser window.
 
 You can try the following cases (accounts) out of the box:
 * *regular user*: `normal@user.com`
@@ -60,7 +60,7 @@ You can try the following cases (accounts) out of the box:
 * *sys admin*: `admin@sb.com`
 * *worker*: `staff@sb.co`
 
-## Improvements
+### Possible improvements
 * Make countdown persistent against page refresh
 * find a way to kill all sessions with `cleanBikes()`, to avoid conflicts
 * Prevent multi-accounting (allowed by `sessionStorage`'s nature)
@@ -75,21 +75,21 @@ You can try the following cases (accounts) out of the box:
 
 ## :memo: Dev log
 
-*1h is the lowest time unit I decided to attribute to a given task. The main reason is that, even if the task looks simple, it's pretty easy to lose time reading documentation or working on another task at the same time.*
+*`1 hour` is the lowest time unit I decided to attribute to a given task. Even if a task looks simple, it's pretty common to spend extra time reading docs or working on another task in parallel.*
 
 ### Draft on paper - 1h
-I started by drawing a rough representation of the model and how it should interact with the view, based on the stories. I usually try to forecast all connections and dependencies to isolate all global methods. Then, I'm transforming methods into tasks and I evaluate their complexity.
+I started by drawing a rough representation of the model its interactions with the view, based on the stories. I usually try to forecast all connections and dependencies to isolate as global methods as possible. Then, I'm transforming methods into tasks and I evaluate their complexity.
 
 ### Defining the stack - 1h
 * [ES6](https://github.com/lukehoban/es6features) JS
 * [Webpack](https://webpack.github.io/) (module bundler)
-* [NPM]() (package manager)
-* [ESLint]() (linter)
+* [NPM](https://www.npmjs.com/) (package manager)
+* [ESLint](https://eslint.org/) (linter)
 * [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) & [sessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) APIs
 * [Atom](https://atom.io/) (text editor)
 * [GitHub](https://github.com/Malivuk/sky-bikes) (version control)
 * [GitKraken](https://www.gitkraken.com/) (Git GUI client)
-* [Circleci]() (running unit testing on PR)
+* [Circleci](https://circleci.com/) (running unit testing on PR)
 
 *While benchmarking data storage solutions, I came across Firebase, AWS or even PouchDB. However, I realized that using the default `browser API` offers more flexibility (no need for a stable internet connection) and scalability (easy to interchange). It also reduces learning curve for anyone involved in the project.*
 
@@ -101,25 +101,28 @@ I started by drawing a rough representation of the model and how it should inter
 * Writing custom NPM scripts
 * GitHub repository & circleci setup
 * ESLint setup
-* Folder architecture (components-based) & documentation mockup
-* Generate dummy static files to test webpack configuration and circleci integration
-* Generate dummy calls to the model
+* Generate basic folder architecture (components-based)
+* Write a documentation mockup
+* Generate dummy static files to test webpack configuration
+* Write dummy test to check circleci integration
+* Make dummy calls to the model
 
 ### Development - 8h
 * Creating responsive and interactive components
 * Binding data to views and handling updates
 * Writing tests
 * Writing docs
+* Cleaning, refactoring, rewriting...
 
 ### Hosting prod version - 1h
-* Create a new s3 bucket
+* Create a new s3 bucket (AWS)
 * Issue a new SSL certificate (Certificate Manager)
 * Set up a CloudFront distribution
 * Bind the distribution to a subdomain (Route 53)
 * Create an update script with the S3 SDK and IAM credentials
 
 ### Front end optimization - 1h
-* Add PWA features (icons, themes, launcher, banner support...)
+* Add PWA features (icons, theme, launcher, banner support...)
 * Add appropriate meta and OG tags
 * Add proper fonts
 * Optimize responsive layout
@@ -131,4 +134,4 @@ I started by drawing a rough representation of the model and how it should inter
 ### Total - 14h
 
 ### Last words
-The project was challenging considering the timeline and my full time job. However, I found it interesting and I felt like learning through the technical limitations (i.e., no front end framework).
+The project was challenging considering the timeline and my full time job. However, I found it interesting and I learned new things through the technical limitations (i.e., no front end framework).
