@@ -1,5 +1,12 @@
 import './Stations.css'
-import { isEmptyObject, getItem, setItem, updateInstruction, isMember, isBanned } from './../../common/lib.js'
+import {
+  isEmptyObject,
+  getItem,
+  setItem,
+  updateInstruction,
+  isMember,
+  isBanned
+} from './../../common/lib.js'
 
 /*
   Component logic
@@ -26,17 +33,21 @@ const initCountdown = () => {
 }
 
 const rentBike = (e) => {
+  e.preventDefault()
+
   const id = e.target.dataset.bike
 
-  // 1. isMember(user)
-  // 2. isBanned(user)
-  // 3. hasBike(user)
-  // 4. addBikeToUser(user)
-  // 5. removeBikeFromStation(bikeID) + UI update
-  // 6. removeBikeFromUser
-  // 7. addBikeToStation
-  // 8. isStationSlotFree
-  // 9. banMember(user)
+  // isMember(user) - import
+  // isBanned(user) - import
+  // banMember(user)
+
+  // hasBike(user) - already
+  // isStationSlotFree
+
+  // addBikeToUser(user)
+  // removeBikeFromStation(bikeID) + UI update
+  // removeBikeFromUser
+  // addBikeToStation
 
   // Update data
   stations.forEach((station) => {
@@ -61,7 +72,7 @@ const rentBike = (e) => {
   Component UI
 */
 
-const Stations = () => {
+export const Stations = () => {
   // Stations element
   const wrapper = document.createElement('div')
   const instruction = document.createElement('p')
@@ -93,12 +104,4 @@ const Stations = () => {
     wrapper.appendChild(station)
   })
   return wrapper
-}
-
-export {
-  Stations,
-  rentBike,
-  banMember,
-  initCountdown,
-  returnBike
 }

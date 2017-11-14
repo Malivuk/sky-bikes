@@ -18,42 +18,42 @@ Demo [cached version](https://skybikes.jeanloup.me/) and [no cached version](htt
 ### Scripts
 todo
 
+
 ## Structure
 
 ### Philosophy
-* Modern JS
+* Modern JS (es6 (arrow, modules, array func...), webpack, babel)
+* JS centric
 * [if](https://hackernoon.com/rethinking-javascript-the-if-statement-b158a61cd6cb)
 * pwa + front opti (fav, theme, metas, og, banner, responsive, ssl, svg)
 * command-line deployment
 * ut - ci
+* no dependecies
 
 ### View
 todo
 
 ### Model
-todo
+* local storage
+* session storage
+* offline first (demo)
+* easy to roll out
 
 ## Improvements
-
-### Routing
-
-### Server-side verification
-
-### Data-binding
-
-### JSX
+* better tests
+* server-side verification
+* server-side rendering
+* add member id
+* custom JSX
+* custom Data-binding
+* custom routing
 [post](https://hackernoon.com/how-i-converted-my-react-app-to-vanillajs-and-whether-or-not-it-was-a-terrible-idea-4b14b1b2faff)
+
 
 ## My approach (dev log)
 
 ### Analysis and paper draft - 1h
 I'm first working on a white paper, writing and drawing a rough representation of the model and its interactions, based on the stories.
-
-#### OOP
-First implementation of the problem as a `is-a` relationship.
-
-#### FP
-Rethink the model as a `has-a` relationship.
 
 #### Tools & stack
 * Plain JavaScript + Babel (transpiling ES6 to ES5)

@@ -1,19 +1,24 @@
 import './Login.css'
-import { updateInstruction, getItem, setItem, setSession, createInput, isMember, isBanned, pageReload } from './../../common/lib.js'
+import {
+  updateInstruction,
+  getItem,
+  setItem,
+  setSession,
+  createInput,
+  isMember,
+  isBanned,
+  sanitize,
+  isValidName,
+  isValidEmail,
+  isValidPhone,
+  pageReload
+} from './../../common/lib.js'
 
 /*
   Component logic
 */
 
 const members = JSON.parse(getItem('sb-members'))
-
-export const sanitize = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
-
-export const isValidName = (n) => (n.length >= 4) === true
-
-export const isValidEmail = (e) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(e)
-
-export const isValidPhone = (p) => /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/.test(p)
 
 const saveMember = (member, members) => {
   members.push(member)
@@ -27,6 +32,8 @@ const startNewSession = (m) => {
 }
 
 const registerAttempt = (e) => {
+  e.preventDefault()
+
   // Sanitize and check fields
   let errors = ''
   const form = document.forms['register-form']
@@ -46,6 +53,8 @@ const registerAttempt = (e) => {
 }
 
 const loginAttempt = (e) => {
+  e.preventDefault()
+
   // Sanitize and check fields
   let errors = ''
   const form = document.forms['login-form']

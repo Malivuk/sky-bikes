@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700" rel="stylesheet">
     <title>SkyBikes</title>
     <meta name="description" content="Progressive Web App used for gift exchange at parties.">
 
@@ -25,6 +25,11 @@
     <meta name="twitter:title" content="SkyBikes">
     <meta name="twitter:description" content="SkyBikes's rental service">
     <meta name="twitter:image" content="http://skybikes.jeanloup.me/public/icons/android-chrome-256x256.png">
+
+    <script type="text/javascript">
+      // Register service worker
+      if ('serviceWorker' in navigator) navigator.serviceWorker.register('public/icons/worker.js')
+    </script>
   </head>
   <body>
     <header>
@@ -33,6 +38,8 @@
     <div class="page-wrap">
       <section id="login"></section>
       <section id="stations"></section>
+      <section id="admin"></section>
+      <section id="staff"></section>
     </div>
   </body>
 </html>

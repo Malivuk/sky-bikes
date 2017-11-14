@@ -1,0 +1,52 @@
+button {
+  margin: 2em 0 0 0;
+}
+
+.member {
+  overflow: auto;
+  clear: both;
+}
+
+.member div, .column-title {
+  float: left;
+  width: 14.28%;
+  padding: 1em .5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.member div {
+  border-right: 1px solid #f0f0f0;
+}
+
+.bike-color {
+  font-weight: 700;
+}
+
+.member {
+  border-left: 1px solid #f0f0f0;
+  border-top: 1px solid #f0f0f0;
+}
+
+.member:last-of-type {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.member:nth-child(odd) {
+  background: #f0f0f0;
+}
+
+.member:hover {
+  color: #fff;
+  background: #F44336;
+}
+
+.titles {
+  overflow: auto;
+}
+
+.column-title {
+  text-align: center;
+  font-weight: 700;
+}

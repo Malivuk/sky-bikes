@@ -4,6 +4,14 @@
 
 export const isEmptyObject = (o) => (Object.keys(o).length === 0 && o.constructor === Object) === true
 
+export const sanitize = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
+
+export const isValidName = (n) => (n.length >= 4 && n.length < 20) === true
+
+export const isValidEmail = (e) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(e)
+
+export const isValidPhone = (p) => /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/.test(p)
+
 export const isMember = (email, members) => members.find((m) => m.mail === email)
 
 export const isBanned = (email, members) => {

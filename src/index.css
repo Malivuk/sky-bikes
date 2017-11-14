@@ -78,6 +78,11 @@ header h1 {
 	font-size: 1.5rem;
 }
 
+h2 {
+	font-size: 1.25rem;
+	margin-bottom: 1em;
+}
+
 .page-wrap {
 	width: 100%;
 	max-width: 1000px;
