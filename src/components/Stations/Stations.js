@@ -6,6 +6,7 @@ import {
   getSession,
   delSession,
   isPrivilegedAccount,
+  hasBike,
   pageReload,
   updateInstruction
 } from './../../common/lib.js'
@@ -30,13 +31,6 @@ const removeBikeFromStation = (id) => {
   setItem('sb-stations', JSON.stringify(stations))
 }
 
-const manualBikeReturn = (e) => {
-  const i = e.target.dataset.station
-  const j = e.target.dataset.slot
-  stations[i][j] = session.bike
-  pageReload()
-}
-
 const automaticBikeReturn = (bike) => {
   stations.some((station, i) => station.some((bike, j) => isEmptyObject(bike) ? station[j] = bike : false))
   setItem('sb-stations', JSON.stringify(stations))
@@ -53,43 +47,77 @@ const logout = () => {
 }
 
 const banMember = (i, session) => {
-  // Update UI
+  // Stop countdown, update UI
   clearInterval(i)
   updateInstruction('Remaining time is over.')
 
-  // Update data
+  // Update session
   if (!isPrivilegedAccount(session.mail)) {
-    automaticBikeReturn(session.bike)
     markAsBanned(session)
     logout()
   }
+  // Return the bike in all cases
+  automaticBikeReturn(session.bike)
 }
 
 const initCountdown = () => {
-  // TODO 16
-  let remainingTime = 2
+  let remainingTime = 5
+
+  // Ban member if countdown expires, otherwise, juste update the clock
   const i = setInterval(() => remainingTime === 0 ? banMember(i, session) : updateInstruction(`Return the bike before ${remainingTime--}.`), 1000)
 }
 
+const manualBikeReturn = (e) => {
+  if (hasBike(session)) {
+    const i = e.target.dataset.station
+    const j = e.target.dataset.slot
+    stations[i][j] = session.bike
+
+    // remove rentTime before session update
+    delete stations[i][j].rentTime
+    setItem('sb-stations', JSON.stringify(stations))
+    pageReload()
+
+  } else {
+    alert('You are not riding a bike.')
+  }
+}
+
 const rentBike = (e) => {
-  // TODO hasBike(user) - already
+  if (!hasBike(session)) {
+    // Get data attributes
+    const bikeId = e.target.dataset.bike
+    const bikeColor = e.target.dataset.color
+    const stationNo = e.target.dataset.station
+    const slotNo = e.target.dataset.slot
 
-  // Udpate UI
-  const bikeId = e.target.dataset.bike
-  const stationNo = e.target.dataset.station
-  const slotNo = e.target.dataset.slot
-  e.preventDefault()
-  e.target.className = 'slot parking'
-  e.target.style.backgroundColor = '#f0f0f0'
-  e.target.dataset.bike = ''
-  e.target.dataset.station = stationNo
-  e.target.dataset.slot = slotNo
-  e.target.addEventListener('click', manualBikeReturn)
+    // Udpate slot UI
+    e.preventDefault()
+    e.target.className = 'slot parking'
+    e.target.style.backgroundColor = '#f0f0f0'
+    e.target.dataset.bike = ''
+    e.target.dataset.station = stationNo
+    e.target.dataset.slot = slotNo
+    e.target.dataset.color = ''
+    e.target.removeEventListener('click', rentBike)
+    e.target.addEventListener('click', manualBikeReturn)
 
-  // Update data
-  removeBikeFromStation(bikeId)
-  // TODO updateMemberSession // update with timer and bike
-  initCountdown()
+    // Update data
+    // Add bike object to session
+    session.bike = {
+      'id': bikeId,
+      'color': bikeColor,
+      'rentTime': performance.now()
+    }
+    updateMemberSession(members, session)
+
+    // Remove bike from the local storage
+    removeBikeFromStation(bikeId)
+    // initCountdown() // TODO REHAB
+
+  } else {
+    alert('You are already riding a bike!')
+  }
 }
 
 /*
@@ -123,6 +151,7 @@ export const Stations = () => {
       bike.dataset.bike = f.id || ''
       bike.dataset.station = i
       bike.dataset.slot = j
+      bike.dataset.color = f.color || ''
       bike.style.backgroundColor = f.color || '#f0f0f0'
       f.id ? bike.addEventListener('click', rentBike) : bike.addEventListener('click', manualBikeReturn)
       station.appendChild(bike)

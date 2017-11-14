@@ -34,14 +34,16 @@ const startNewSession = (m) => {
 const registerAttempt = (e) => {
   e.preventDefault()
 
-  // Sanitize and check fields
-  let errors = ''
+  // Sanitize fields
   const form = document.forms['register-form']
   const member = {
     'name': sanitize(form['register-name'].value),
     'phone': sanitize(form['register-phone'].value),
     'mail': sanitize(form['register-mail'].value)
   }
+
+  // Build error message or return empty string
+  let errors = ''
   errors += !isValidName(member.name) ? 'Please enter a valid name (e.g., John Doe).<br>' : ''
   errors += !isValidPhone(member.phone) ? 'Please enter a valid phone number (e.g., 01034947369).<br>' : ''
   errors += !isValidEmail(member.mail) ? 'Please enter a valid email address (e.g., john@doe.com).<br>'
@@ -55,12 +57,14 @@ const registerAttempt = (e) => {
 const loginAttempt = (e) => {
   e.preventDefault()
 
-  // Sanitize and check fields
-  let errors = ''
+  // Sanitize fields
   const form = document.forms['login-form']
   const member = {
     'mail': sanitize(form['login-mail'].value)
   }
+
+  // Build error message or return empty string
+  let errors = ''
   errors += !isValidEmail(member.mail) ? 'Please enter a valid email address (e.g., john@doe.com).<br>'
     : !isMember(member.mail, members) ? 'You are not registered yet, please register.<br>'
       : isBanned(member.mail, members) ? 'You are not allowed to access the service, please contact support@sbybikes.com.<br>'

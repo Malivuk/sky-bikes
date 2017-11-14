@@ -1,5 +1,6 @@
 import { setItem, pageReload } from './../../common/lib.js'
 import { initStations } from './../../../public/data/stations.js'
+import { initMembers } from './../../../public/data/members.js'
 
 /*
   Component logic
@@ -8,6 +9,10 @@ import { initStations } from './../../../public/data/stations.js'
 const cleanBikes = () => {
   // Simple hard reset so far
   setItem('sb-stations', JSON.stringify(initStations))
+
+  // Also clean users to avoid conflicts
+  setItem('sb-members', JSON.stringify(initMembers))
+
   pageReload()
 }
 

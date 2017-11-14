@@ -16,6 +16,12 @@ button {
   text-overflow: ellipsis;
 }
 
+@media only screen and (max-width: 640px) {
+  .member div {
+    width: 100%;
+  }
+}
+
 .member div {
   border-right: 1px solid #f0f0f0;
 }
@@ -37,13 +43,35 @@ button {
   background: #f0f0f0;
 }
 
-.member:hover {
-  color: #fff;
-  background: #F44336;
+@media only screen and (max-width: 640px) {
+  .member div {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .member:nth-child(odd) div {
+    border-bottom: 1px solid #fff;
+  }
+
+  .member:last-of-type {
+    border-bottom: none;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .member:hover {
+    color: #fff;
+    background: #F44336;
+  }
 }
 
 .titles {
   overflow: auto;
+}
+
+@media only screen and (max-width: 640px) {
+  .titles, .member .no-data {
+    display: none;
+  }
 }
 
 .column-title {

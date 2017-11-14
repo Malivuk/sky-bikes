@@ -1,4 +1,4 @@
-export const initUsers = [
+export const initMembers = [
   {
     "mail": "admin@sb.com",
     "name": "Admin",

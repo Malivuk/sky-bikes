@@ -5,7 +5,7 @@ import { Admin } from './components/Admin/Admin.js'
 import { Staff } from './components/Staff/Staff.js'
 import { getItem, setItem, getSession } from './common/lib.js'
 import { initStations } from './../public/data/stations.js'
-import { initUsers } from './../public/data/members.js'
+import { initMembers } from './../public/data/members.js'
 
 /*
   Initiliaze an new array of Stations
@@ -17,7 +17,7 @@ getItem('sb-stations') ? getItem('sb-stations') : setItem('sb-stations', JSON.st
   Initiliaze an new array of Users
   or fetch existing data from localstorage
 */
-getItem('sb-members') ? getItem('sb-members') : setItem('sb-members', JSON.stringify(initUsers))
+getItem('sb-members') ? getItem('sb-members') : setItem('sb-members', JSON.stringify(initMembers))
 
 /*
   Shows Login component if no session exists

@@ -44,20 +44,23 @@ export const Admin = () => {
 
   members.map((m, i) => {
     // Single cell
+    // User info
     const member = document.createElement('div')
     member.className = 'member'
     member.appendChild(createFakeTableCell('member-name', m.name))
     member.appendChild(createFakeTableCell('member-phone', m.phone))
     member.appendChild(createFakeTableCell('member-email', m.mail))
-    m.banned ? member.appendChild(createFakeTableCell('member-status', 'banned')) : member.appendChild(createFakeTableCell('member-status', '&#8203;'))
+    m.banned ? member.appendChild(createFakeTableCell('member-status', 'banned')) : member.appendChild(createFakeTableCell('member-status no-data', '&#8203;'))
+
+    // Display bike info or empty cells
     if (m.bike) {
       member.appendChild(createFakeTableCell('bike-id', m.bike.id))
       member.appendChild(createFakeTableCell('bike-color', m.bike.color, m.bike.color))
       member.appendChild(createFakeTableCell('bike-timer', m.bike.remainingTime))
     } else {
-      member.appendChild(createFakeTableCell('bike-id', '&#8203;'))
-      member.appendChild(createFakeTableCell('bike-color', '&#8203;'))
-      member.appendChild(createFakeTableCell('bike-timer', '&#8203;'))
+      member.appendChild(createFakeTableCell('bike-id no-data', '&#8203;'))
+      member.appendChild(createFakeTableCell('bike-color no-data', '&#8203;'))
+      member.appendChild(createFakeTableCell('bike-timer no-data', '&#8203;'))
     }
     wrapper.appendChild(member)
   })

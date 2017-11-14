@@ -41,7 +41,7 @@ npm install
 npm start
 
 # Run tests manually
-npm test
+npm run test
 
 # Build production version
 npm run build
@@ -123,7 +123,7 @@ I started by drawing a rough representation of the model and how it should inter
 * Optimize responsive layout
 
 ### QA - 1h
-* Test stories on main browsers
+* Test stories on main browsers and devices
 
 ### Last words
 The project was challenging considering the timeline and my full time job. However, I found it interesting and I felt like learning through the technical limitation (i.e., no front end framework).

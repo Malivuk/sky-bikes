@@ -6,7 +6,8 @@ import {
   isValidName,
   isValidEmail,
   isValidPhone,
-  isPrivilegedAccount
+  isPrivilegedAccount,
+  hasBike
 } from './lib.js'
 import { expect } from 'chai'
 
@@ -21,6 +22,16 @@ const testUsers = [
     "name": "John",
     "phone": "00000000001",
     "banned": true
+  },
+  {
+    "mail": "riding@gmail.com",
+    "name": "Ridley",
+    "phone": "00000000002",
+    "bike": {
+      "color": "#FF0000",
+      "id": "14",
+      "rentTime": 1046.5300000000002
+    }
   }
 ]
 
@@ -129,6 +140,19 @@ describe('isPrivilegedAccount', () => {
   context('when user is privileged', () => {
     it('returns true', () => {
       expect(isPrivilegedAccount('admin@sb.com')).to.equal(true)
+    })
+  })
+})
+
+describe('hasBike', () => {
+  context('when user has no bike object', () => {
+    it('returns false', () => {
+      expect(hasBike(testUsers[0])).to.equal(false)
+    })
+  })
+  context('when user holds a bike object', () => {
+    it('returns true', () => {
+      expect(hasBike(testUsers[2])).to.equal(true)
     })
   })
 })

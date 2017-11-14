@@ -16,6 +16,8 @@ export const isMember = (email, members) => members.find((m) => m.mail === email
 
 export const isPrivilegedAccount = (session) => (session === 'admin@sb.com' || session === 'staff@sb.com') === true
 
+export const hasBike = (session) => session.hasOwnProperty('bike') === true
+
 export const isBanned = (email, members) => {
   const member = members.find((m) => m.mail === email)
   return member.banned === true
